@@ -1,6 +1,6 @@
 import mqtt from "mqtt";
-import entities from '@/database/entities';
-import { sensorRepository, readingRepository } from '@/database';
+import entities from '@/lib/database/entities';
+import { sensorRepository, readingRepository } from '@/lib/database';
 
 interface MqttClientOptions {
   url: string;

@@ -1,5 +1,5 @@
-import { startCollector } from "./collector";
-import { initialize } from "@/database";
+import { startCollector } from "@/lib/collector";
+import { initialize } from "@/lib/database";
 
 export async function register() {
   if (!process.env.TTN_MQTT_URL) {
