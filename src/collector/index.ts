@@ -14,7 +14,7 @@ interface SensorReading {
   payload: any
 }
 
-export function begin(options: MqttClientOptions) {
+export function startCollector(options: MqttClientOptions) {
   const client = mqtt.connect(options.url, {
     username: options.applicationId + "@ttn",
     password: options.password,
