@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import Sensor from './sensor.entity';
+import type Sensor from './sensor.entity';
 
 @Entity()
 export default class Reading {
-  constructor (value: number, timestamp: Date, sensor: Sensor) {
+  constructor(value: number, timestamp: Date, sensor: Sensor) {
     this.value = value;
     this.timestamp = timestamp;
     this.sensor = sensor;
@@ -23,7 +23,7 @@ export default class Reading {
   })
   timestamp!: Date
 
-  @ManyToOne(() => Sensor, sensor => sensor.readings, {
+  @ManyToOne("Sensor", (sensor: Sensor) => sensor.readings, {
     cascade: true,
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',

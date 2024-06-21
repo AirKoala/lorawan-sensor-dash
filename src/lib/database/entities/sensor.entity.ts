@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
-import Reading from './reading.entity';
+import type Reading from './reading.entity';
 
 @Entity()
 export default class Sensor {
