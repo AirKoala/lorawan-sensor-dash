@@ -1,7 +1,2 @@
-import Reading from "./reading.entity";
-import Sensor from "./sensor.entity";
-
-export default {
-  Reading,
-  Sensor,
-};
+export * from "./reading.entity";
+export * from "./sensor.entity";

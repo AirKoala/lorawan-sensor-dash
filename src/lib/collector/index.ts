@@ -1,6 +1,6 @@
 import mqtt from "mqtt";
-import entities from '@/lib/database/entities';
-import { sensorRepository, readingRepository } from '@/lib/database';
+// import entities from '@/lib/database/entities';
+import { getSensorRepository, saveReading } from "@/lib/database";
 
 interface MqttClientOptions {
   url: string;
@@ -32,15 +32,15 @@ export function startCollector(options: MqttClientOptions) {
   });
 }
 
-async function saveReading(reading: SensorReading) {
-  readingRepository.save(new entities.Reading(
-    reading.payload,
-    new Date(reading.receivedAt),
-    await sensorRepository.findOneBy({
-      id: reading.deviceId,
-    }) || new entities.Sensor(reading.deviceId)
-  ));
-}
+// async function saveReading(reading: SensorReading) {
+//   readingRepository.save(new entities.Reading(
+//     reading.payload,
+//     new Date(reading.receivedAt),
+//     await sensorRepository.findOneBy({
+//       id: reading.deviceId,
+//     }) || new entities.Sensor(reading.deviceId)
+//   ));
+// }
 
 
 function parseMessage(rawMessage: Buffer): SensorReading {

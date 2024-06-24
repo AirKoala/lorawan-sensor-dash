@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryColumn, OneToMany } from 'typeorm';
-import type Reading from './reading.entity';
+import type { Reading } from './reading.entity';
 
 @Entity()
-export default class Sensor {
+export class Sensor {
   constructor(id: string, name?: string) {
     this.id = id;
     this.name = name;

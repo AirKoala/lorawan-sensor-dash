@@ -2,7 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import type Sensor from './sensor.entity';
 
 @Entity()
-export default class Reading {
+export class Reading {
   constructor(value: number, timestamp: Date, sensor: Sensor) {
     this.value = value;
     this.timestamp = timestamp;
