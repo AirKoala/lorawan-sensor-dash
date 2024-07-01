@@ -20,7 +20,7 @@ export default function Page() {
       </thead>
       <tbody>
         {sensors.map((sensor) => <tr key={sensor.id}>
-          <td> <Link href={`/dashboard/sensor/${sensor.id}`}>
+          <td> <Link href={`/dashboard/sensor/view?sensorId=${sensor.id}`}>
             {sensor.id}
           </Link> </td>
           <td>{sensor.name}</td>

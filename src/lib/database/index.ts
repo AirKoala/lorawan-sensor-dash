@@ -18,16 +18,14 @@ const database = new DataSource({
 async function ensureConnection() {
   if (database.isInitialized) return;
 
-  console.log("Initializing database...");
-
   try {
+    console.log("Initializing database...");
     await database.initialize();
+    console.log("Database initialized.");
   } catch (error) {
     console.error("Error connecting to the database", error);
     process.exit(1);
   }
-
-  console.log("Database initialized.");
 }
 
 export async function getDatabase() {

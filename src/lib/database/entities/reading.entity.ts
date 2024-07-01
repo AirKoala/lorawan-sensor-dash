@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import type Sensor from './sensor.entity';
+import type { Sensor } from './sensor.entity';
 
 @Entity()
 export class Reading {
