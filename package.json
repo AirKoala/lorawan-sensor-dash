@@ -9,12 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-checkbox": "^1.1.1",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-dropdown-menu": "^2.1.1",
+    "@radix-ui/react-navigation-menu": "^1.2.0",
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-tooltip": "^1.1.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.400.0",
     "mqtt": "^5.7.1",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18",
     "recharts": "^2.12.7",
     "sqlite3": "^5.1.7",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7",
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
@@ -23,6 +34,7 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
+    "tailwindcss": "^3.4.4",
     "typescript": "^5"
   },
   "browser": {
