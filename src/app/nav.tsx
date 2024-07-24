@@ -1,27 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+import Navbar from "react-bootstrap/Navbar";
+import BootstrapNav from "react-bootstrap/Nav";
+// import {
+//   NavigationMenu,
+//   NavigationMenuItem,
+//   NavigationMenuLink,
+//   NavigationMenuList,
+//   navigationMenuTriggerStyle,
+// } from "@/components/ui/navigation-menu"
 
 
 export default function Nav() {
   return (
-    <NavigationMenu className="bg-muted/40">
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <Link href="/dashboard/sensor/list" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Sensor List
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
-      </NavigationMenuList>
-    </NavigationMenu>
+    <Navbar expand="sm" className="bg-body-secondary px-5">
+      <Navbar.Brand href="#">Lorawan Sensor Dashboard</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse>
+        <BootstrapNav className="me-auto">
+          <BootstrapNav.Link href="/dashboard/sensor/list">Sensor List</BootstrapNav.Link>
+          <BootstrapNav.Link href="#">Settings</BootstrapNav.Link>
+        </BootstrapNav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }

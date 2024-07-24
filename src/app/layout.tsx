@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+// import "./globals.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Nav from "./nav";
+import Container from "react-bootstrap/Container";
 
 export const metadata: Metadata = {
   title: "Lorawan Sensor Dashboard",
@@ -15,12 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="flex w-full flex-col p-10 bg-background">
-          <Nav />
-          <main className="mt-5">
+        <Nav />
+        <main>
+          <Container className="pt-sm-5">
             {children}
-          </main>
-        </div>
+          </Container>
+        </main>
       </body>
     </html>
   );

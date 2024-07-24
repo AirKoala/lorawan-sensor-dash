@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react";
 import { SensorData, getSensorData } from "./actions";
 import SensorGraph from "./sensor-graph";
-import { Button } from "@/components/ui/button";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+
+import { RefreshCw as RefreshIcon } from "lucide-react";
+
+import { AxisDomain } from "recharts/types/util/types";
+import { Container, Row } from "react-bootstrap";
 
 type SensorDataMap = { [sensorId: string]: SensorData };
 
@@ -18,6 +24,10 @@ export default function View(props: {
   const [sensorIds, setSensorIds] = useState(props.initialSensorIds);
 
   const [isUpdating, setIsUpdating] = useState(false);
+  const [combined, setCombined] = useState(false);
+
+  const [xDomain, setXDomain] = useState<AxisDomain>(["dataMin", Date.now()]);
+  const [yDomain, setYDomain] = useState<AxisDomain>(["dataMin", "dataMax"]);
 
   async function updateData() {
     setIsUpdating(true);
@@ -99,14 +109,61 @@ export default function View(props: {
 
   return (
     isClient && sensorIds?.length > 0 ? (
-      <>
-        {/* isUpdating && <p>Updating...</p> */}
-        {isUpdating
-          ? <Button disabled>Updating...</Button>
-          : <Button onClick={updateData}>Update</Button>}
+      <Container>
+        <Row className="col-md-3">
+          <Button className="w-auto me-2" disabled={isUpdating}>
+            {isUpdating ? "Updating..." : <RefreshIcon />}
+          </Button>
+
+          <Form.Select
+            className="w-auto"
+            onChange={(event) => {
+              const range = event.target.value;
+              switch (range) {
+                case "hour":
+                  setXDomain([Date.now() - 1000 * 60 * 60, Date.now()]);
+                  break;
+                case "day":
+                  setXDomain([Date.now() - 1000 * 60 * 60 * 24, Date.now()]);
+                  break;
+                case "all":
+                  setXDomain(["dataMin", Date.now()]);
+                  break;
+              }
+              console.log(range, xDomain);
+            }}>
+            <option value="hour">Past Hour</option>
+            <option value="day">Past 24 Hours</option>
+            <option value="all">All Time</option>
+          </Form.Select>
+
+          {
+            // {sensorIds.length > 1 && <div className="flex items-center space-x-2 m-2">
+            // <Form.Check id="combined-checkbox" onCheckedChange={(checked) => {
+            //   setCombined(checked.valueOf() as boolean);
+            // }} />
+            // <label
+            //   htmlFor="combined-checkbox"
+            //   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            // >
+            //   Combine graphs
+            // </label>
+            //</div >}
+          }
+
+        </Row>
+
         {props.showTable && getReadingsTable()}
-        <SensorGraph data={getReadingsForGraph(sensorData, sensorIds)} />
-      </>
+        <Row className="col-md-9">
+          {
+            combined
+              ? <SensorGraph data={getReadingsForGraph(sensorData, sensorIds)} xDomain={xDomain} />
+              : sensorIds.map((sensorId) => (
+                <SensorGraph data={getReadingsForGraph(sensorData, [sensorId])} xDomain={xDomain} />
+              ))
+          }
+        </Row>
+      </Container>
     ) : <p>Loading...</p>
   );
 }

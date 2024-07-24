@@ -11,6 +11,7 @@ import {
   YAxis,
   ZAxis
 } from "recharts";
+import { AxisDomain } from "recharts/types/util/types";
 
 type SensorData = { timestamp: Date; value: number }[];
 
@@ -18,6 +19,8 @@ export default function SensorGraph(props: {
   data: { sensorName: string; readings: SensorData }[],
   width?: number | string,
   height?: number | string,
+  xDomain?: AxisDomain,
+  yDomain?: AxisDomain,
 }) {
   const colors = [
     "#8884d8",
@@ -43,11 +46,11 @@ export default function SensorGraph(props: {
         }}
       >
         <CartesianGrid />
-        <XAxis type="number" domain={["dataMin", "dataMax"]} scale="time"
+        <XAxis type="number" domain={props.xDomain ?? ["dataMin", "dataMax"]} scale="time"
           dataKey={(v) => v.timestamp.valueOf()}
           tickFormatter={formatTime}
         />
-        <YAxis type="number" domain={["dataMin", "dataMax"]} dataKey="value" />
+        <YAxis type="number" domain={props.yDomain ?? ["dataMin", "dataMax"]} dataKey="value" />
         <ZAxis type="number" range={[100]} />
         <Tooltip
           cursor={{ strokeDasharray: '3 3' }}
