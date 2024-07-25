@@ -68,47 +68,49 @@ export default function EditForm({ sensorId, sensorMetadata }: {
 					<Row>
 						<h6>Data Mapping</h6>
 					</Row>
-					<Row>
-						<h6>From</h6>
-						<Form.Group className="col-6" controlId="sensorRawMinimum">
-							<Form.Label>Minimum Value</Form.Label>
-							<Form.Control
-								type="number"
-								placeholder="Enter sensor minimum"
-								name="sensorRawMinimum"
-								defaultValue={sensorMetadata.rawMinimum}
-							/>
-						</Form.Group>
-						<Form.Group className="col-6" controlId="sensorRawMaximum">
-							<Form.Label>Maximum Value</Form.Label>
-							<Form.Control
-								type="number"
-								placeholder="Enter sensor maximum"
-								name="sensorRawMaximum"
-								defaultValue={sensorMetadata.rawMaximum}
-							/>
-						</Form.Group>
-					</Row>
-					<Row className="mt-3">
-						<h6>To</h6>
-						<Form.Group className="col-6" controlId="sensorMappedMinimum">
-							<Form.Label>Minimum Value</Form.Label>
-							<Form.Control
-								type="number"
-								placeholder="Enter sensor minimum"
-								name="sensorMappedMinimum"
-								defaultValue={sensorMetadata.mappedMinimum}
-							/>
-						</Form.Group>
-						<Form.Group className="col-6" controlId="sensorMappedMaximum">
-							<Form.Label>Maximum Value</Form.Label>
-							<Form.Control
-								type="number"
-								placeholder="Enter sensor maximum"
-								name="sensorMappedMaximum"
-								defaultValue={sensorMetadata.mappedMaximum}
-							/>
-						</Form.Group>
+					<Row className="m-1 p-2 border">
+						<Row className="my-3">
+							<h6>From</h6>
+							<Form.Group className="col-6" controlId="sensorRawMinimum">
+								<Form.Label>Minimum Value</Form.Label>
+								<Form.Control
+									type="number"
+									placeholder="Enter sensor minimum"
+									name="sensorRawMinimum"
+									defaultValue={sensorMetadata.rawMinimum}
+								/>
+							</Form.Group>
+							<Form.Group className="col-6" controlId="sensorRawMaximum">
+								<Form.Label>Maximum Value</Form.Label>
+								<Form.Control
+									type="number"
+									placeholder="Enter sensor maximum"
+									name="sensorRawMaximum"
+									defaultValue={sensorMetadata.rawMaximum}
+								/>
+							</Form.Group>
+						</Row>
+						<Row className="mb-3">
+							<h6>To</h6>
+							<Form.Group className="col-6" controlId="sensorMappedMinimum">
+								<Form.Label>Minimum Value</Form.Label>
+								<Form.Control
+									type="number"
+									placeholder="Enter sensor minimum"
+									name="sensorMappedMinimum"
+									defaultValue={sensorMetadata.mappedMinimum}
+								/>
+							</Form.Group>
+							<Form.Group className="col-6" controlId="sensorMappedMaximum">
+								<Form.Label>Maximum Value</Form.Label>
+								<Form.Control
+									type="number"
+									placeholder="Enter sensor maximum"
+									name="sensorMappedMaximum"
+									defaultValue={sensorMetadata.mappedMaximum}
+								/>
+							</Form.Group>
+						</Row>
 					</Row>
 				</div>
 				<Form.Group className="mb-3" controlId="sensorUnit">
