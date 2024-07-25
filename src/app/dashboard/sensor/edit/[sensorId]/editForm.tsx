@@ -25,7 +25,7 @@ export default function EditForm({ sensorId, sensorMetadata }: {
 					</Alert>
 				))
 			}
-			<Form action={async (formData) => {
+			<Form className="col-lg-6" action={async (formData) => {
 				setAlerts([{ variant: "info", text: "Saving..." }]);
 
 				try {
