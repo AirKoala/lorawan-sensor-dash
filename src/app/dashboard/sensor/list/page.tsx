@@ -12,14 +12,17 @@ export default function Page() {
     return <Table hover>
       <thead>
         <tr>
-          <th className="px-2">Show</th>
-          <th className="px-2">Sensor ID</th>
-          <th className="px-2">Sensor Name</th>
+          <th>Show</th>
+          <th>Sensor ID</th>
+          <th>Sensor Name</th>
+          <th>Sensor Type</th>
+          <th>Data Mapping</th>
+          <th>Data Unit</th>
         </tr>
       </thead>
       <tbody>
         {sensors.map((sensor) => <tr key={sensor.id}>
-          <td className="px-2">
+          <td>
             <Form.Check
               inline
               aria-label={"Show " + sensor.name}
@@ -29,7 +32,7 @@ export default function Page() {
               value={sensor.id}
             />
           </td>
-          <td className="px-2">
+          <td>
             <Link href={"/dashboard/sensor/edit/" + sensor.id} passHref={true}>
               <SettingsIcon />
             </Link>
@@ -37,9 +40,16 @@ export default function Page() {
               {sensor.id}
             </span>
           </td>
-          <td className="px-2">
-            {sensor.name}
-          </td>
+          <td> {sensor.name} </td>
+          <td> {sensor.type ?? "-"} </td>
+          {
+            (sensor.rawMinimum === null || sensor.rawMaximum === null || sensor.mappedMinimum === null || sensor.mappedMaximum === null) ? (
+              <td>-</td>
+            ) : (
+              <td> [{sensor.rawMinimum}, {sensor.rawMaximum}] → [{sensor.mappedMinimum}, {sensor.mappedMaximum}] </td>
+            )
+          }
+          <td> {sensor.unit ?? "-"} </td>
         </tr>)}
       </tbody>
     </Table>;

@@ -14,13 +14,13 @@ import BootstrapNav from "react-bootstrap/Nav";
 
 export default function Nav() {
   return (
-    <Navbar expand="sm" className="bg-body-secondary px-5">
+    <Navbar sticky="top" expand="sm" className="bg-body-secondary px-5">
       <Navbar.Brand href="#">Lorawan Sensor Dashboard</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse>
         <BootstrapNav className="me-auto">
           <BootstrapNav.Link href="/dashboard/sensor/list">Sensor List</BootstrapNav.Link>
-          <BootstrapNav.Link href="#">Settings</BootstrapNav.Link>
+          <BootstrapNav.Link>Settings</BootstrapNav.Link>
         </BootstrapNav>
       </Navbar.Collapse>
     </Navbar>

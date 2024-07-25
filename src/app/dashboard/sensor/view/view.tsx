@@ -26,8 +26,12 @@ export default function View(props: {
   const [isUpdating, setIsUpdating] = useState(false);
   const [combined, setCombined] = useState(false);
 
-  const [xDomain, setXDomain] = useState<AxisDomain>(["dataMin", Date.now()]);
-  const [yDomain, setYDomain] = useState<AxisDomain>(["dataMin", "dataMax"]);
+  const [xDomain, setXDomain] = useState<[
+    string | number, string | number
+  ]>(["dataMin", Date.now()]);
+  // const [yDomain, setYDomain] = useState<[
+  //   string | number, string | number
+  // ]>(["dataMin", "dataMax"]);
 
   async function updateData() {
     setIsUpdating(true);
@@ -101,22 +105,59 @@ export default function View(props: {
     </table>;
   }
 
-  function getReadingsForGraph(data: { [sensorId: string]: SensorData }, sensorIds: string[]) {
-    return sensorIds.map(
+  function mapReading(
+    value: number,
+    mapping: {
+      rawMinimum: number,
+      rawMaximum: number,
+      mappedMinimum: number,
+      mappedMaximum: number
+    }
+  ): number {
+    return (value - mapping.rawMinimum)
+      * (mapping.mappedMaximum - mapping.mappedMinimum)
+      / (mapping.rawMaximum - mapping.rawMinimum)
+      + mapping.mappedMinimum;
+  }
+
+
+  function getReadingsForGraph(
+    data: { [sensorId: string]: SensorData }, sensorIds: string[]
+  ) {
+    let sensors = sensorIds.map(
       (sensorId) => (data[sensorId] ?? { sensorName: "Unknown", readings: [] })
     );
+
+    sensors = sensors.map((sensor) => {
+      if (sensor.dataMapping === undefined) {
+        return sensor;
+      }
+
+      const newSensor = { ...sensor };
+      newSensor.readings = newSensor.readings.map((reading) => (
+        {
+          ...reading,
+          // @ts-ignore
+          value: mapReading(reading.value, sensor.dataMapping),
+        }
+      ));
+
+      return newSensor;
+    });
+
+    return sensors;
   }
 
   return (
     isClient && sensorIds?.length > 0 ? (
       <Container>
-        <Row className="col-md-3">
-          <Button className="w-auto me-2" disabled={isUpdating}>
+        <Row>
+          <Button className="w-auto me-2 col-2" disabled={isUpdating}>
             {isUpdating ? "Updating..." : <RefreshIcon />}
           </Button>
 
           <Form.Select
-            className="w-auto"
+            className="w-auto col-10"
             onChange={(event) => {
               const range = event.target.value;
               switch (range) {
@@ -136,29 +177,16 @@ export default function View(props: {
             <option value="day">Past 24 Hours</option>
             <option value="all">All Time</option>
           </Form.Select>
-
-          {
-            // {sensorIds.length > 1 && <div className="flex items-center space-x-2 m-2">
-            // <Form.Check id="combined-checkbox" onCheckedChange={(checked) => {
-            //   setCombined(checked.valueOf() as boolean);
-            // }} />
-            // <label
-            //   htmlFor="combined-checkbox"
-            //   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            // >
-            //   Combine graphs
-            // </label>
-            //</div >}
-          }
-
         </Row>
 
         {props.showTable && getReadingsTable()}
         <Row className="col-md-9">
           {
             combined
+              // @ts-ignore
               ? <SensorGraph data={getReadingsForGraph(sensorData, sensorIds)} xDomain={xDomain} />
               : sensorIds.map((sensorId) => (
+              // @ts-ignore
                 <SensorGraph data={getReadingsForGraph(sensorData, [sensorId])} xDomain={xDomain} />
               ))
           }

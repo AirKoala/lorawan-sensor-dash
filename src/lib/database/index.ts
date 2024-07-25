@@ -51,6 +51,10 @@ export async function getSensorById(id: string): Promise<entities.Sensor | null>
   return (await getSensorRepository()).findOneBy({ id });
 }
 
+export async function saveSensor(sensor: entities.Sensor) {
+  (await getSensorRepository()).save(sensor);
+}
+
 export async function getReadingsFor(sensor: entities.Sensor): Promise<entities.Reading[]> {
   return (await getReadingRepository()).find({
     where: { sensor },

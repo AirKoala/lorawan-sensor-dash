@@ -17,9 +17,21 @@ export class Sensor {
   @OneToMany("Reading", (reading: Reading) => reading.sensor)
   readings!: Reading[];
 
-  // @Column()
-  // location!: string;
+  @Column({ nullable: true })
+  rawMinimum?: number;
 
-  // @Column()
-  // type: string
+  @Column({ nullable: true })
+  rawMaximum?: number;
+
+  @Column({ nullable: true })
+  mappedMinimum?: number;
+
+  @Column({ nullable: true })
+  mappedMaximum?: number;
+
+  @Column({ nullable: true })
+  unit?: string;
+  
+  @Column({ nullable: true })
+  type?: string
 }
