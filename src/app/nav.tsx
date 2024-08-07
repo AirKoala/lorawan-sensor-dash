@@ -20,7 +20,7 @@ export default function Nav() {
       <Navbar.Collapse>
         <BootstrapNav className="me-auto">
           <BootstrapNav.Link href="/dashboard/sensor/list">Sensor List</BootstrapNav.Link>
-          <BootstrapNav.Link>Settings</BootstrapNav.Link>
+          <BootstrapNav.Link href="/dashboard/sensor/add">Add Sensor</BootstrapNav.Link>
         </BootstrapNav>
       </Navbar.Collapse>
     </Navbar>

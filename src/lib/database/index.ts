@@ -87,6 +87,10 @@ export async function saveReading(reading: {
   ));
 }
 
+export async function createSensor(id: string) {
+  (await getSensorRepository()).save(new entities.Sensor(id));
+}
+
 // function entitiesChanged(prevEntities: any[], newEntities: any[]): boolean {
 //   if (prevEntities.length !== newEntities.length) return true;
 //

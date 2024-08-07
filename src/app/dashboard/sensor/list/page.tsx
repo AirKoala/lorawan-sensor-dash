@@ -6,9 +6,17 @@ import Button from "react-bootstrap/Button";
 import { Settings2 as SettingsIcon } from "lucide-react";
 import Link from "next/link";
 
+import { getEndDevice } from "@/lib/ttn";
+
 export default function Page() {
   async function getSensorList() {
     const sensors = await getAllSensors();
+    sensors.forEach(async (sensor) => {
+      console.log(sensor.id);
+      const res = await getEndDevice(sensor.id);
+      console.log(JSON.stringify(res));
+    });
+
     return <Table hover>
       <thead>
         <tr>
@@ -59,6 +67,8 @@ export default function Page() {
     <Form action="/dashboard/sensor/view" method="get">
       {getSensorList()}
       <Button type="submit" variant="primary">View</Button>
+      <Button variant="primary" href="/dashboard/sensor/add"
+        className="ms-2"> Add New </Button>
     </Form>
   );
 }

@@ -19,7 +19,7 @@ export default function RootLayout({
       <body>
         <Nav />
         <main>
-          <Container className="pt-sm-5">
+          <Container className="pt-sm-5 pb-5">
             {children}
           </Container>
         </main>

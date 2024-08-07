@@ -53,7 +53,7 @@ export default function View(props: {
 
     // Clear interval on unmount, to prevent memory leaks
     return () => clearInterval(updateDataInterval);
-  }, []);
+  });
 
   // useEffect(() => {
   //   setSensorData(initialSensorData);
@@ -184,10 +184,10 @@ export default function View(props: {
           {
             combined
               // @ts-ignore
-              ? <SensorGraph data={getReadingsForGraph(sensorData, sensorIds)} xDomain={xDomain} />
+              ? <SensorGraph data={getReadingsForGraph(sensorData, sensorIds)} xDomain={xDomain} key={combined}/>
               : sensorIds.map((sensorId) => (
               // @ts-ignore
-                <SensorGraph data={getReadingsForGraph(sensorData, [sensorId])} xDomain={xDomain} />
+                <SensorGraph data={getReadingsForGraph(sensorData, [sensorId])} xDomain={xDomain} key={combined}/>
               ))
           }
         </Row>
