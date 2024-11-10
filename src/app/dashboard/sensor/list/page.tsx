@@ -24,6 +24,7 @@ export default function Page() {
           <th>Sensor ID</th>
           <th>Sensor Name</th>
           <th>Sensor Type</th>
+          <th>Number of Readings</th>
           <th>Data Mapping</th>
           <th>Data Unit</th>
         </tr>
@@ -50,6 +51,7 @@ export default function Page() {
           </td>
           <td> {sensor.name} </td>
           <td> {sensor.type ?? "-"} </td>
+          <td> {sensor.numReadings} </td>
           {
             (sensor.rawMinimum === null || sensor.rawMaximum === null || sensor.mappedMinimum === null || sensor.mappedMaximum === null) ? (
               <td>-</td>

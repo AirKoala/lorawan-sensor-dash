@@ -5,12 +5,24 @@ import { Card, CardBody, CardTitle, CardText, Spinner, Row, Table, Button } from
 import { registerDevice } from "./actions";
 
 import type { EndDeviceOptions } from "@/lib/ttn";
+import { setTimeout } from "timers/promises";
 
 export default function DetailsView() {
   const [deviceDetails, setDeviceDetails] = useState<EndDeviceOptions | null>(null);
 
   useEffect(() => {
-    registerDevice().then(setDeviceDetails);
+    // registerDevice().then(setDeviceDetails);
+
+    // Placeholder:
+    setTimeout(1000).then(() => {
+      setDeviceDetails({
+        device_id: "device_id",
+        dev_eui: "dev_eui",
+        dev_addr: "dev_addr",
+        app_session_key: Buffer.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
+        network_session_key: Buffer.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]),
+      });
+    });
   }, []);
 
   return (
@@ -52,14 +64,14 @@ export default function DetailsView() {
 
           <Button variant="primary" className="mt-3" href={deviceDetails ? `/dashboard/sensor/edit/${deviceDetails.device_id}` : "/dashboard/sensor/list"}>
             Continue
-        </Button>
-      </> : <>
-        <CardText className="d-flex">
-          <span className="align-middle">Registering device on TTN...</span>
-          <Spinner animation="grow" className="ms-auto" />
-        </CardText>
-      </>}
-    </CardBody>
+          </Button>
+        </> : <>
+          <CardText className="d-flex">
+            <span className="align-middle">Registering device on TTN...</span>
+            <Spinner animation="grow" className="ms-auto" />
+          </CardText>
+        </>}
+      </CardBody>
     </Card >
   );
 }

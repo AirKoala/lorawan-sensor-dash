@@ -12,16 +12,19 @@ export default async function Page({ searchParams }: {
   }
 
   const sensorIds = (typeof searchParams.sensorId === "string") ? [searchParams.sensorId] : searchParams.sensorId;
+  
+  const mappedSensorIds: string[] = [];
 
   for (const sensorId of sensorIds) {
     const data = await getSensorData(sensorId);
-    sensorData[sensorId] = data;
+    data.forEach((readingGroup, i) => {
+      const id = sensorId + "-" + i;
+      sensorData[id] = readingGroup;
+      mappedSensorIds.push(id);
+    });
   }
 
-  // console.log(sensorData);
-  // console.log(sensorIds);
-
   return (
-    <View initialSensorIds={sensorIds} initialSensorData={sensorData} />
+    <View initialSensorIds={mappedSensorIds} initialSensorData={sensorData} realSensorIds={sensorIds} />
   )
 }

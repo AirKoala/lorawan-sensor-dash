@@ -16,8 +16,11 @@ type SensorDataMap = { [sensorId: string]: SensorData };
 export default function View(props: {
   initialSensorData: SensorDataMap,
   initialSensorIds: string[],
+  realSensorIds: string[],
   showTable?: boolean,
 }) {
+  console.log("View", props);
+
   const [isClient, setIsClient] = useState(false);
 
   const [sensorData, setSensorData] = useState(props.initialSensorData);
@@ -36,9 +39,11 @@ export default function View(props: {
   async function updateData() {
     setIsUpdating(true);
     const newSensorData: SensorDataMap = {};
-    for (const sensorId of sensorIds) {
+    for (const sensorId of props.realSensorIds) {
       const data = await getSensorData(sensorId);
-      newSensorData[sensorId] = data;
+      data.forEach((readingGroup, i) => {
+        newSensorData[sensorId + "-" + i] = readingGroup;
+      });
     }
 
     setSensorData(newSensorData);

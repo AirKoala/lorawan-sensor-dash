@@ -23,6 +23,16 @@ export default function SensorGraph(props: {
   yDomain: [string, string] | [number, number],
   unit?: string,
 }) {
+  props.data.forEach((sensor) => {
+    sensor.readings.map((reading) => {
+      if (typeof reading.value === "string") {
+        reading.value = parseFloat(reading.value);
+      }
+    });
+  });
+
+  console.log("SensorGraph", props);
+
   const colors = [
     "#8884d8",
     "#82ca9d",

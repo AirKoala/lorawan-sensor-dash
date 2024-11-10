@@ -18,7 +18,7 @@ export type SensorData = {
   unit?: string;
 };
 
-export async function getSensorData(sensorId: string): Promise<SensorData> {
+export async function getSensorData(sensorId: string): Promise<SensorData[]> {
   const sensor = await getSensorById(sensorId);
 
   if (!sensor) {
@@ -28,21 +28,25 @@ export async function getSensorData(sensorId: string): Promise<SensorData> {
 
   const readings = await getReadingsForSensorId(sensorId);
 
-  const data: SensorData = {
-    sensorName: sensor.name || "Unknown",
-    unit: sensor.unit,
-    readings: readings.map((reading) => ({
-      value: reading.value,
-      timestamp: reading.timestamp,
-    })),
-  };
+  const data: SensorData[] = [];
+
+  for (let i = 0; i < sensor.numReadings; i++) {
+    data.push({
+      sensorName: sensor.name || "Unknown",
+      unit: sensor.unit,
+      readings: readings.map((reading) => ({
+        value: reading.values[i],
+        timestamp: reading.timestamp,
+      })),
+    });
+  }
 
 
   if (!(sensor.rawMinimum === undefined
     || sensor.rawMaximum === undefined
     || sensor.mappedMinimum === undefined
     || sensor.mappedMaximum === undefined)) {
-    data.dataMapping = {
+    data[0].dataMapping = {
       rawMinimum: sensor.rawMinimum,
       rawMaximum: sensor.rawMaximum,
       mappedMinimum: sensor.mappedMinimum,

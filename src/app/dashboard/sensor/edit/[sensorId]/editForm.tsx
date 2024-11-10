@@ -16,6 +16,8 @@ export default function EditForm({ sensorId, sensorMetadata }: {
 		text: string,
 	}[]>([]);
 
+	const [numReadings, setNumReadings] = useState<number>(0);
+
 	return (
 		<>
 			{
@@ -63,6 +65,26 @@ export default function EditForm({ sensorId, sensorMetadata }: {
 						name="sensorType"
 						defaultValue={sensorMetadata.type}
 					/>
+				</Form.Group>
+				<Form.Group className="mb-3" controlId="numReadings">
+					<Form.Label>Number of readings per payload.</Form.Label>
+					<Form.Control
+						required
+						value={numReadings}
+						onChange={(e) => {
+							if (e.target.value === '') {
+								setNumReadings(1);
+								return;
+							}
+							const newVal = parseInt(e.target.value);
+							if (!isNaN(newVal)) {
+								setNumReadings(newVal);
+							}
+						}}
+						type="number"
+						min="1"
+						max="10"
+						name="readingCount" />
 				</Form.Group>
 				<div className="mb-3 gy-3">
 					<Row>

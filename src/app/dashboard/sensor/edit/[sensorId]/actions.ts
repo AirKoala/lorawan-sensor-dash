@@ -19,6 +19,7 @@ export type SensorMetadata = {
 	mappedMinimum?: number;
 	mappedMaximum?: number;
 	unit?: string;
+	numReadings?: number;
 };
 
 export async function updateSensor(id: string, sensorMetadata: SensorMetadata) {
@@ -56,6 +57,7 @@ export async function updateSensor(id: string, sensorMetadata: SensorMetadata) {
 	sensor.mappedMaximum = sensorMetadata.mappedMaximum ?? sensor.mappedMaximum ?? sensor.mappedMaximum;
 	sensor.unit = sensorMetadata.unit ?? sensor.unit;
 	sensor.type = sensorMetadata.type ?? sensor.type;
+	sensor.numReadings = sensorMetadata.numReadings ?? sensor.numReadings;
 
 	await saveSensor(sensor);
 }
