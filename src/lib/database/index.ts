@@ -74,7 +74,7 @@ export async function sensorExists(id: string): Promise<boolean> {
 }
 
 export async function saveReading(reading: {
-  payload: number,
+  payload: number[],
   receivedAt: string,
   deviceId: string
 }) {

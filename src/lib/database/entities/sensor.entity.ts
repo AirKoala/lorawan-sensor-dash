@@ -33,5 +33,8 @@ export class Sensor {
   unit?: string;
   
   @Column({ nullable: true })
-  type?: string
+  type?: string;
+
+  @Column({ nullable: false })
+  numReadings: number = 1;
 }

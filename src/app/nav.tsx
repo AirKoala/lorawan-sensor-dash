@@ -15,7 +15,7 @@ import BootstrapNav from "react-bootstrap/Nav";
 export default function Nav() {
   return (
     <Navbar sticky="top" expand="sm" className="bg-body-secondary px-5">
-      <Navbar.Brand href="#">Lorawan Sensor Dashboard</Navbar.Brand>
+      <Navbar.Brand href="/">Lorawan Sensor Dashboard</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse>
         <BootstrapNav className="me-auto">

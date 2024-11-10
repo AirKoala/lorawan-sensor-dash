@@ -46,9 +46,11 @@ export function startCollector(options: MqttClientOptions) {
 function parseMessage(rawMessage: Buffer): SensorReading {
   const received = JSON.parse(rawMessage.toString());
 
+  console.log("Received:", received);
+
   return {
     deviceId: received.end_device_ids.device_id,
     receivedAt: received.received_at,
-    payload: received.uplink_message.decoded_payload.value,
+    payload: received.uplink_message.decoded_payload.values,
   }
 }

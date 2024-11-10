@@ -3,8 +3,8 @@ import type { Sensor } from './sensor.entity';
 
 @Entity()
 export class Reading {
-  constructor(value: number, timestamp: Date, sensor: Sensor) {
-    this.value = value;
+  constructor(values: number[], timestamp: Date, sensor: Sensor) {
+    this.values = values;
     this.timestamp = timestamp;
     this.sensor = sensor;
   }
@@ -12,11 +12,12 @@ export class Reading {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column({
-    nullable: false,
-    type: 'double',
-  })
-  value!: number
+  // @Column({
+  //   nullable: false,
+  //   type: 'simple-array',
+  // })
+  @Column('simple-array', {nullable: false})
+  values!: number[]
 
   @Column({
     nullable: false,
