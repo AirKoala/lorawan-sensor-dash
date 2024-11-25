@@ -3,10 +3,12 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import { Settings2 as SettingsIcon } from "lucide-react";
+import DownloadButton from './download-button';
+import { DownloadIcon, Settings2 as SettingsIcon } from "lucide-react";
 import Link from "next/link";
 
 import { getEndDevice } from "@/lib/ttn";
+import { readingsCsv } from "./actions";
 
 export default function Page() {
   async function getSensorList() {
@@ -45,6 +47,7 @@ export default function Page() {
             <Link href={"/dashboard/sensor/edit/" + sensor.id} passHref={true}>
               <SettingsIcon />
             </Link>
+            <DownloadButton sensorId={sensor.id} />
             <span className="ms-2">
               {sensor.id}
             </span>
